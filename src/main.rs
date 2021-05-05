@@ -26,7 +26,4 @@ fn handle_line(line: String) {
     if line.contains('{') {
         print!("{}", line.trim_start_matches(|c| c != '{'));
     }
-    else {
-        print!("{}", line);
-    }
 }
