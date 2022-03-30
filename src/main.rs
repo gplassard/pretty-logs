@@ -12,18 +12,39 @@ fn main() {
                 if n == 0 {
                     exit(0);
                 }
-                handle_line(input);
+                match clean_line(&input) {
+                    Some(x) => println!("{}", x),
+                    None => {}
+                };
             }
             Err(error) => {
-                eprintln!("error: {}", error);
+                eprintln!("error while reading line : {}", error);
                 exit(1);
             },
         }
     }
 }
 
-fn handle_line(line: String) {
+fn clean_line(line: &String) -> Option<&str> {
     if line.contains('{') {
-        print!("{}", line.trim_start_matches(|c| c != '{'));
+        Some(line.trim_start_matches(|c| c != '{'))
+    }
+    else {
+        None
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::clean_line;
+
+    #[test]
+    fn non_matching_string() {
+        assert_eq!(clean_line(&"aaaaa".to_string()), None)
+    }
+
+    #[test]
+    fn matching_string() {
+        assert_eq!(clean_line(&"aaaaa {\"count\": 0}".to_string()), Some("{\"count\": 0}"))
     }
 }
