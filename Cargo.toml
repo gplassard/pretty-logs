@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 atty = "0.2"
+structopt = "0.3.26"

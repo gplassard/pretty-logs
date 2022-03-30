@@ -1,7 +1,12 @@
+mod cli;
+
 use std::io;
 use std::process::exit;
+use structopt::StructOpt;
+use cli::Cli;
 
 fn main() {
+    let _cli = Cli::from_args();
     if atty::is(atty::Stream::Stdin) {
         exit(0);
     }
@@ -20,7 +25,7 @@ fn main() {
             Err(error) => {
                 eprintln!("error while reading line : {}", error);
                 exit(1);
-            },
+            }
         }
     }
 }
@@ -28,8 +33,7 @@ fn main() {
 fn clean_line(line: &String) -> Option<&str> {
     if line.contains('{') {
         Some(line.trim_start_matches(|c| c != '{'))
-    }
-    else {
+    } else {
         None
     }
 }

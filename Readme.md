@@ -1,6 +1,6 @@
 # Pretty-logs
 
-Simple CLI to drop input until '{' is encountered (designed to be used in conjuction with https://github.com/TylerBrock/saw 
+Simple CLI to drop input until '{' is encountered (designed to be used in conjunction with https://github.com/TylerBrock/saw 
 and https://github.com/stedolan/jq) for log produced by an AWS Lambda with NodeJS runtime. 
 
 ```
