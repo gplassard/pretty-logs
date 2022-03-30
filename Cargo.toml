@@ -1,6 +1,6 @@
 [package]
 name = "pretty-logs"
-version = "0.4.0"
+version = "1.0.0"
 authors = ["Gabriel Plassard <gabriel.plassard@gmail.com>"]
 edition = "2018"
 
