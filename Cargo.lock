@@ -75,7 +75,7 @@ checksum = "329c933548736bc49fd575ee68c89e8be4d260064184389a5b77517cddd99ffb"
 
 [[package]]
 name = "pretty-logs"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
  "atty",
  "structopt",
