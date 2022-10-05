@@ -2,10 +2,10 @@
 name = "pretty-logs"
 version = "1.0.1"
 authors = ["Gabriel Plassard <gabriel.plassard@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-atty = "0.2"
+atty = "0.2.14"
 structopt = "0.3.26"
