@@ -4,12 +4,19 @@ use std::io;
 use std::process::exit;
 use structopt::StructOpt;
 use cli::Cli;
+use env_logger::Builder;
+use log::debug;
+use log::error;
+
 
 fn main() {
     let cli = Cli::from_args();
+    Builder::new().filter_level(cli.log_level).init();
+
     if atty::is(atty::Stream::Stdin) {
         exit(0);
     }
+    debug!("tty stdin detected, proceeding");
     loop {
         let mut input = String::new();
         match io::stdin().read_line(&mut input) {
@@ -23,7 +30,7 @@ fn main() {
                 };
             }
             Err(error) => {
-                eprintln!("error while reading line : {}", error);
+                error!("error while reading line : {}", error);
                 exit(1);
             }
         }
@@ -41,10 +48,19 @@ fn clean_line<'a>(line: &'a str, cli: &Cli) -> Option<&'a str> {
             index_of_last_bracket = Some(i);
         }
     }
+    debug!("Detected brackets indexes : first {:?}, last {:?}", index_of_first_bracket, index_of_last_bracket);
+    match index_of_first_bracket {
+        Some(first) => debug!("First part (len {:?}) : \"{}\"", first, &line[..first]),
+        None => debug!("No first part detected"),
+    }
+    match index_of_last_bracket {
+        Some(last) => debug!("Last part (len {:?}) : \"{}\"", line.len() - (last + 1), &line[(last + 1)..]),
+        None => debug!("No last part detected"),
+    }
 
     match (cli, index_of_first_bracket, index_of_last_bracket) {
-        (Cli { preserve_start: false, preserve_end: false }, Some(first), Some(last)) => Some(&line[first..(last + 1)]),
-        (Cli { preserve_start: false, preserve_end: true }, Some(first), _) => Some(&line[first..]),
+        (Cli { preserve_start: false, preserve_end: false, .. }, Some(first), Some(last)) => Some(&line[first..(last + 1)]),
+        (Cli { preserve_start: false, preserve_end: true, .. }, Some(first), _) => Some(&line[first..]),
         (Cli { preserve_start: false, .. }, Some(first), None) => Some(&line[first..]),
         (Cli { preserve_start: true, .. }, _, Some(last)) => Some(&line[..(last + 1)]),
         (Cli { preserve_start: true, .. }, _, _) => Some(&line),
@@ -54,6 +70,7 @@ fn clean_line<'a>(line: &'a str, cli: &Cli) -> Option<&'a str> {
 
 #[cfg(test)]
 mod tests {
+    use log::LevelFilter::Error;
     use crate::{clean_line, Cli};
 
     #[test]
@@ -61,6 +78,7 @@ mod tests {
         let cli = Cli {
             preserve_start: false,
             preserve_end: false,
+            log_level: Error,
         };
         assert_eq!(clean_line(&"aaaaa", &cli), None)
     }
@@ -70,6 +88,7 @@ mod tests {
         let cli = Cli {
             preserve_start: true,
             preserve_end: false,
+            log_level: Error,
         };
         assert_eq!(clean_line(&"aaaaa", &cli), Some("aaaaa"))
     }
@@ -79,6 +98,7 @@ mod tests {
         let cli = Cli {
             preserve_start: false,
             preserve_end: true,
+            log_level: Error,
         };
         assert_eq!(clean_line(&"aaaaa", &cli), None)
     }
@@ -88,6 +108,7 @@ mod tests {
         let cli = Cli {
             preserve_start: false,
             preserve_end: false,
+            log_level: Error,
         };
         assert_eq!(clean_line(&"aaaaa {\"count\": 0}", &cli), Some("{\"count\": 0}"))
     }
@@ -97,6 +118,7 @@ mod tests {
         let cli = Cli {
             preserve_start: false,
             preserve_end: false,
+            log_level: Error,
         };
         assert_eq!(clean_line(&"{\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0}"))
     }
@@ -106,6 +128,7 @@ mod tests {
         let cli = Cli {
             preserve_start: false,
             preserve_end: false,
+            log_level: Error,
         };
         assert_eq!(clean_line(&"aaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0}"))
     }
@@ -115,6 +138,7 @@ mod tests {
         let cli = Cli {
             preserve_start: true,
             preserve_end: false,
+            log_level: Error,
         };
         assert_eq!(clean_line(&"aaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("aaaaaaa {\"count\": 0}"))
     }
@@ -124,6 +148,7 @@ mod tests {
         let cli = Cli {
             preserve_start: false,
             preserve_end: true,
+            log_level: Error,
         };
         assert_eq!(clean_line(&"aaaaaaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0} aaaaaaaa"))
     }
