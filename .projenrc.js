@@ -10,6 +10,8 @@ const project = new RustProject({
         },
         dependencies: {
             'atty': "0.2.14",
+            'env_logger': "0.10.0",
+            'log': "0.4.16",
             'structopt': "0.3.26",
         }
     }
