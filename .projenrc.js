@@ -1,11 +1,12 @@
 const { RustProject } = require('@gplassard/projen-extensions');
+const packageJson = require('./package.json');
 
 const project = new RustProject({
     name: 'pretty-logs',
     cargo: {
         package: {
             authors: ["Gabriel Plassard <gabriel.plassard@gmail.com>"],
-            version: '1.0.2',
+            version: packageJson.version,
             edition: "2021",
         },
         dependencies: {
