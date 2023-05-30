@@ -1,6 +1,6 @@
 {
   "name": "pretty-logs",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "repository": "git@github.com:gplassard/pretty-logs.git",
   "author": "Gabriel Plassard <gabriel.plassard@gmail.com>",
   "license": "MIT",
