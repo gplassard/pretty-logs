@@ -4,9 +4,15 @@ node_modules/
 !/.projen/tasks.json
 !/.projen/deps.json
 !/.projen/files.json
+.vscode
+.DS_Store
+!/Cargo.toml
 target
-!/cargo.toml
 !/.github/workflows/rust-release.yml
 !/.github/workflows/rust-build.yml
+!/.github/workflows/rust-lint.yml
+!/.github/workflows/pull-request-lint.yml
+!/.github/workflows/upgrade-nodejs-dependencies.yml
+!/.github/workflows/projen-synth.yml
 .idea
 *.iml
