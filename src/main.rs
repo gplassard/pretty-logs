@@ -1,13 +1,12 @@
 mod cli;
 
-use std::io;
-use std::process::exit;
-use structopt::StructOpt;
 use cli::Cli;
 use env_logger::Builder;
 use log::debug;
 use log::error;
-
+use std::io;
+use std::process::exit;
+use structopt::StructOpt;
 
 fn main() {
     let cli = Cli::from_args();
@@ -24,7 +23,9 @@ fn main() {
                 if n == 0 {
                     exit(0);
                 }
-                if let Some(x) = clean_line(&input, &cli) { println!("{}", x) };
+                if let Some(x) = clean_line(&input, &cli) {
+                    println!("{}", x)
+                };
             }
             Err(error) => {
                 error!("error while reading line : {}", error);
@@ -45,30 +46,74 @@ fn clean_line<'a>(line: &'a str, cli: &Cli) -> Option<&'a str> {
             index_of_last_bracket = Some(i);
         }
     }
-    debug!("Detected brackets indexes : first {:?}, last {:?}", index_of_first_bracket, index_of_last_bracket);
+    debug!(
+        "Detected brackets indexes : first {:?}, last {:?}",
+        index_of_first_bracket, index_of_last_bracket
+    );
     match index_of_first_bracket {
         Some(first) => debug!("First part (len {:?}) : \"{}\"", first, &line[..first]),
         None => debug!("No first part detected"),
     }
     match index_of_last_bracket {
-        Some(last) => debug!("Last part (len {:?}) : \"{}\"", line.len() - (last + 1), &line[(last + 1)..]),
+        Some(last) => debug!(
+            "Last part (len {:?}) : \"{}\"",
+            line.len() - (last + 1),
+            &line[(last + 1)..]
+        ),
         None => debug!("No last part detected"),
     }
 
     match (cli, index_of_first_bracket, index_of_last_bracket) {
-        (Cli { preserve_start: false, preserve_end: false, .. }, Some(first), Some(last)) => Some(&line[first..(last + 1)]),
-        (Cli { preserve_start: false, preserve_end: true, .. }, Some(first), _) => Some(&line[first..]),
-        (Cli { preserve_start: false, .. }, Some(first), None) => Some(&line[first..]),
-        (Cli { preserve_start: true, .. }, _, Some(last)) => Some(&line[..(last + 1)]),
-        (Cli { preserve_start: true, .. }, _, _) => Some(line),
-        (_, _, _) => None
+        (
+            Cli {
+                preserve_start: false,
+                preserve_end: false,
+                ..
+            },
+            Some(first),
+            Some(last),
+        ) => Some(&line[first..(last + 1)]),
+        (
+            Cli {
+                preserve_start: false,
+                preserve_end: true,
+                ..
+            },
+            Some(first),
+            _,
+        ) => Some(&line[first..]),
+        (
+            Cli {
+                preserve_start: false,
+                ..
+            },
+            Some(first),
+            None,
+        ) => Some(&line[first..]),
+        (
+            Cli {
+                preserve_start: true,
+                ..
+            },
+            _,
+            Some(last),
+        ) => Some(&line[..(last + 1)]),
+        (
+            Cli {
+                preserve_start: true,
+                ..
+            },
+            _,
+            _,
+        ) => Some(line),
+        (_, _, _) => None,
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use log::LevelFilter::Error;
     use crate::{clean_line, Cli};
+    use log::LevelFilter::Error;
 
     #[test]
     fn no_json_no_preserve() {
@@ -107,7 +152,10 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line("aaaaa {\"count\": 0}", &cli), Some("{\"count\": 0}"))
+        assert_eq!(
+            clean_line("aaaaa {\"count\": 0}", &cli),
+            Some("{\"count\": 0}")
+        )
     }
 
     #[test]
@@ -117,7 +165,10 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line("{\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0}"))
+        assert_eq!(
+            clean_line("{\"count\": 0} aaaaaaaa", &cli),
+            Some("{\"count\": 0}")
+        )
     }
 
     #[test]
@@ -127,7 +178,10 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line("aaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0}"))
+        assert_eq!(
+            clean_line("aaaaaaa {\"count\": 0} aaaaaaaa", &cli),
+            Some("{\"count\": 0}")
+        )
     }
 
     #[test]
@@ -137,7 +191,10 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line("aaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("aaaaaaa {\"count\": 0}"))
+        assert_eq!(
+            clean_line("aaaaaaa {\"count\": 0} aaaaaaaa", &cli),
+            Some("aaaaaaa {\"count\": 0}")
+        )
     }
 
     #[test]
@@ -147,6 +204,9 @@ mod tests {
             preserve_end: true,
             log_level: Error,
         };
-        assert_eq!(clean_line("aaaaaaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0} aaaaaaaa"))
+        assert_eq!(
+            clean_line("aaaaaaaaaaa {\"count\": 0} aaaaaaaa", &cli),
+            Some("{\"count\": 0} aaaaaaaa")
+        )
     }
 }
