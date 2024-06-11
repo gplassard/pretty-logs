@@ -23,7 +23,6 @@ pub struct Cli {
     pub preserve_end: bool,
 }
 
-
 fn level_filters() -> [&'static str; 6] {
     [
         LevelFilter::Off.as_str(),
