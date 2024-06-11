@@ -24,10 +24,7 @@ fn main() {
                 if n == 0 {
                     exit(0);
                 }
-                match clean_line(&input, &cli) {
-                    Some(x) => println!("{}", x),
-                    None => {}
-                };
+                if let Some(x) = clean_line(&input, &cli) { println!("{}", x) };
             }
             Err(error) => {
                 error!("error while reading line : {}", error);
@@ -63,7 +60,7 @@ fn clean_line<'a>(line: &'a str, cli: &Cli) -> Option<&'a str> {
         (Cli { preserve_start: false, preserve_end: true, .. }, Some(first), _) => Some(&line[first..]),
         (Cli { preserve_start: false, .. }, Some(first), None) => Some(&line[first..]),
         (Cli { preserve_start: true, .. }, _, Some(last)) => Some(&line[..(last + 1)]),
-        (Cli { preserve_start: true, .. }, _, _) => Some(&line),
+        (Cli { preserve_start: true, .. }, _, _) => Some(line),
         (_, _, _) => None
     }
 }
@@ -80,7 +77,7 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line(&"aaaaa", &cli), None)
+        assert_eq!(clean_line("aaaaa", &cli), None)
     }
 
     #[test]
@@ -90,7 +87,7 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line(&"aaaaa", &cli), Some("aaaaa"))
+        assert_eq!(clean_line("aaaaa", &cli), Some("aaaaa"))
     }
 
     #[test]
@@ -100,7 +97,7 @@ mod tests {
             preserve_end: true,
             log_level: Error,
         };
-        assert_eq!(clean_line(&"aaaaa", &cli), None)
+        assert_eq!(clean_line("aaaaa", &cli), None)
     }
 
     #[test]
@@ -110,7 +107,7 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line(&"aaaaa {\"count\": 0}", &cli), Some("{\"count\": 0}"))
+        assert_eq!(clean_line("aaaaa {\"count\": 0}", &cli), Some("{\"count\": 0}"))
     }
 
     #[test]
@@ -120,7 +117,7 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line(&"{\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0}"))
+        assert_eq!(clean_line("{\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0}"))
     }
 
     #[test]
@@ -130,7 +127,7 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line(&"aaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0}"))
+        assert_eq!(clean_line("aaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0}"))
     }
 
     #[test]
@@ -140,7 +137,7 @@ mod tests {
             preserve_end: false,
             log_level: Error,
         };
-        assert_eq!(clean_line(&"aaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("aaaaaaa {\"count\": 0}"))
+        assert_eq!(clean_line("aaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("aaaaaaa {\"count\": 0}"))
     }
 
     #[test]
@@ -150,6 +147,6 @@ mod tests {
             preserve_end: true,
             log_level: Error,
         };
-        assert_eq!(clean_line(&"aaaaaaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0} aaaaaaaa"))
+        assert_eq!(clean_line("aaaaaaaaaaa {\"count\": 0} aaaaaaaa", &cli), Some("{\"count\": 0} aaaaaaaa"))
     }
 }
