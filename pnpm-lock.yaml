@@ -9,16 +9,16 @@ importers:
   .:
     devDependencies:
       '@gplassard/projen-extensions':
-        specifier: ^0.0.144
-        version: 0.0.144(constructs@10.3.0)(projen@0.92.9(constructs@10.3.0))
+        specifier: ^0.0.149
+        version: 0.0.149(constructs@10.3.0)(projen@0.94.0(constructs@10.3.0))
       projen:
-        specifier: ^0.92.9
-        version: 0.92.9(constructs@10.3.0)
+        specifier: ^0.94.0
+        version: 0.94.0(constructs@10.3.0)
 
 packages:
 
-  '@gplassard/projen-extensions@0.0.144':
-    resolution: {integrity: sha512-KRrzaZzPKg5Ci5jdHspfudKgjDcGkKuCcuefF8Hle1yQQmgldU4BpLuOPg5l1UxOkvzBwZ08H48mbBTQnPbyBA==, tarball: https://npm.pkg.github.com/download/@gplassard/projen-extensions/0.0.144/93ce7235653b09798a4c86daa0d045b384a5320e}
+  '@gplassard/projen-extensions@0.0.149':
+    resolution: {integrity: sha512-CssBBobqoc7DAL1DwvFZwI1G07yVgM8j4ABchCE6wVcuw9pOY63AxNbuuwL1bbSE4K9wqUF1jIPI4irlL5dIBg==, tarball: https://npm.pkg.github.com/download/@gplassard/projen-extensions/0.0.149/3a55a0e7c5e9b8fdb20d992e7caae22f4499675d}
     peerDependencies:
       constructs: ^10.4.2
       projen: ^0.92.8
@@ -27,8 +27,8 @@ packages:
     resolution: {integrity: sha512-vbK8i3rIb/xwZxSpTjz3SagHn1qq9BChLEfy5Hf6fB3/2eFbrwt2n9kHwQcS0CPTRBesreeAcsJfMq2229FnbQ==}
     engines: {node: '>= 16.14.0'}
 
-  projen@0.92.9:
-    resolution: {integrity: sha512-bagWBR8FSaQqBAVQdJufDo2y2tNfOdWRLNOacGV9Ow1PtxCQdtNWEnv3du3Vjp61x7c9iN/zd/XO7QJXRtA3xw==}
+  projen@0.94.0:
+    resolution: {integrity: sha512-ttlEalyI5pVMgXEtNBvqmDrrE2nA7uIxRyJmGchK8z503AOYHcRk/MKDvQiLicHMQydA4LubAShrK/PCE18hEw==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -39,8 +39,8 @@ packages:
       - chalk
       - comment-json
       - conventional-changelog-config-spec
+      - fast-glob
       - fast-json-patch
-      - glob
       - ini
       - parse-conflict-json
       - semver
@@ -51,13 +51,13 @@ packages:
 
 snapshots:
 
-  '@gplassard/projen-extensions@0.0.144(constructs@10.3.0)(projen@0.92.9(constructs@10.3.0))':
+  '@gplassard/projen-extensions@0.0.149(constructs@10.3.0)(projen@0.94.0(constructs@10.3.0))':
     dependencies:
       constructs: 10.3.0
-      projen: 0.92.9(constructs@10.3.0)
+      projen: 0.94.0(constructs@10.3.0)
 
   constructs@10.3.0: {}
 
-  projen@0.92.9(constructs@10.3.0):
+  projen@0.94.0(constructs@10.3.0):
     dependencies:
       constructs: 10.3.0
