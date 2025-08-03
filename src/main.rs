@@ -24,7 +24,7 @@ fn main() {
                     exit(0);
                 }
                 if let Some(x) = clean_line(&input, &cli) {
-                    println!("{}", x)
+                    println!("{x}")
                 };
             }
             Err(error) => {
