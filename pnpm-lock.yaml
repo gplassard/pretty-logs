@@ -9,26 +9,26 @@ importers:
   .:
     devDependencies:
       '@gplassard/projen-extensions':
-        specifier: ^0.1.12
-        version: 0.1.12(constructs@10.3.0)(projen@0.98.6(constructs@10.3.0))
+        specifier: ^0.1.15
+        version: 0.1.15(constructs@10.3.0)(projen@0.98.28(constructs@10.3.0))
       projen:
-        specifier: ^0.98.6
-        version: 0.98.6(constructs@10.3.0)
+        specifier: ^0.98.28
+        version: 0.98.28(constructs@10.3.0)
 
 packages:
 
-  '@gplassard/projen-extensions@0.1.12':
-    resolution: {integrity: sha512-PkvbYxARuVXnsbyYAu7IN9977qhESZkf5v+n6AR3F9WWtIJh4mKdVEDaegpDtOKKNsAyzgf8ivWDewYmWoizdA==, tarball: https://npm.pkg.github.com/download/@gplassard/projen-extensions/0.1.12/83cd60e0596cdfc17a586f33c8d0b16d616c06e4}
+  '@gplassard/projen-extensions@0.1.15':
+    resolution: {integrity: sha512-pK9fikaqW+JKJbz5SThDhNJPcBdjqEhyOjGQbjpSfjX4Xxua9bekQTQrEgDazji3fwOi7Mli6zRZZiiyknh80g==, tarball: https://npm.pkg.github.com/download/@gplassard/projen-extensions/0.1.15/e8e193458d0ae157c98afaa597506783082a50d8}
     peerDependencies:
-      constructs: ^10.4.2
-      projen: ^0.96.5
+      constructs: ^10.4.3
+      projen: ^0.98.26
 
   constructs@10.3.0:
     resolution: {integrity: sha512-vbK8i3rIb/xwZxSpTjz3SagHn1qq9BChLEfy5Hf6fB3/2eFbrwt2n9kHwQcS0CPTRBesreeAcsJfMq2229FnbQ==}
     engines: {node: '>= 16.14.0'}
 
-  projen@0.98.6:
-    resolution: {integrity: sha512-YR4tUn24D8BB16gGm3bjqVMj3NWbNG2sBmUv4M5Wvdv7t56hJ5Xo4fDGKVWzGGBvtSKIYtxC28gEt/4YXDKbwA==}
+  projen@0.98.28:
+    resolution: {integrity: sha512-ZX96Z8Fsxts8mLtFD3QyvPElhhX9Y6yE1gCBr/GPSTUyL6O6xYyESYR9QbzWAZg9fmYZOmb337OIrNfieEN/6g==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -51,13 +51,13 @@ packages:
 
 snapshots:
 
-  '@gplassard/projen-extensions@0.1.12(constructs@10.3.0)(projen@0.98.6(constructs@10.3.0))':
+  '@gplassard/projen-extensions@0.1.15(constructs@10.3.0)(projen@0.98.28(constructs@10.3.0))':
     dependencies:
       constructs: 10.3.0
-      projen: 0.98.6(constructs@10.3.0)
+      projen: 0.98.28(constructs@10.3.0)
 
   constructs@10.3.0: {}
 
-  projen@0.98.6(constructs@10.3.0):
+  projen@0.98.28(constructs@10.3.0):
     dependencies:
       constructs: 10.3.0
