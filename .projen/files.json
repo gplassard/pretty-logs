@@ -16,6 +16,7 @@
     ".projen/deps.json",
     ".projen/files.json",
     ".projen/tasks.json",
+    "pnpm-workspace.yaml",
     "release-please-config.json",
     "static-analysis.datadog.yaml"
   ],
