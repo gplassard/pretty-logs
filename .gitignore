@@ -6,6 +6,7 @@ node_modules/
 !/.projen/files.json
 .vscode
 .DS_Store
+!/pnpm-workspace.yaml
 !/.github/workflows/pull-request-lint.yml
 !/.github/workflows/upgrade-nodejs-dependencies.yml
 !/.github/workflows/projen-synth.yml
