@@ -9,7 +9,7 @@
     "projen": "node .projenrc.js"
   },
   "devDependencies": {
-    "@gplassard/projen-extensions": "^0.1.73",
-    "projen": "^0.103.15"
+    "@gplassard/projen-extensions": "^0.1.74",
+    "projen": "^0.103.25"
   }
 }
