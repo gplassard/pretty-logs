@@ -6,6 +6,8 @@ node_modules/
 !/.projen/files.json
 .vscode
 .DS_Store
+!/.devcontainer/devcontainer.json
+!/.devcontainer/devcontainer-lock.json
 !/pnpm-workspace.yaml
 !/.github/workflows/pull-request-lint.yml
 !/.github/workflows/upgrade-nodejs-dependencies.yml
